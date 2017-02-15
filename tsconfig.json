@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "buildOnSave":true,
+  "targetHasForOf":true,
+  "targetHasGenerators": true,
+  "targetHasIterables": true,
+  "compilerOptions": {
+    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "sourceMap": false,
+    "experimentalDecorators": true,
+    "noResolve": true,
+    "moduleResolution": "classic",
+    "pretty": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "examples"
+  ]
+}
