@@ -5,7 +5,8 @@
   "targetHasGenerators": true,
   "targetHasIterables": true,
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
+    "module": "commonjs",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "sourceMap": false,

@@ -7,11 +7,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var entry={
     'common/core':[
-        'webpack-dev-server/client?http://localhost:' + 8889,
+        'webpack-dev-server/client?http://localhost:8889',
         'webpack/hot/only-dev-server',
         'react','react-dom','react-router','mobx-react','mobx'
     ],
-    'index':'entry/index'
+    'index':'./src/entry/index'
 };
 
 module.exports={
@@ -19,7 +19,7 @@ module.exports={
 
     resolve:{
         modulesDirectories: ['', 'src', 'node_modules', path.join(__dirname, '../node_modules')],
-        extensions:['','.json','.js','.jsx']
+        extensions: ['', '.web.js', '.js', '.json', 'ts', '.tsx']
     },
     output:{
         path:path.join(__dirname,'app'),
@@ -35,15 +35,12 @@ module.exports={
                 include: /src/,
                 loader:'react-hot'
             },
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react', 'stage-0'],
-                    plugins: ['add-module-exports']
-                }
-            },
+            /*{
+                test: /\.js?$/,
+                exclude: /(node_modules|typings)/,
+                include: /src/,
+                loader: 'babel'
+            },*/
             {
                 test: /\.json$/,
                 loader: 'json-loader'
@@ -55,10 +52,6 @@ module.exports={
             {
                 test: /\.css$/,
                 loader: 'style!css!postcss'
-            },
-            {
-                test: /ts\-helpers/,
-                loader: 'imports?this=>window'
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)\??.*$/i,
@@ -79,6 +72,7 @@ module.exports={
                 "js": ["assets/head_bundle.js", "assets/main_bundle.js"],
             }
         }),
+        
         new OpenBrowserPlugin({url: `http://localhost:8889`}),
     ]
 };

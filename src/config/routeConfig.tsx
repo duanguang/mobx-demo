@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Route, IndexRoute} from 'react-router';
-import {TodoListView,person} from "../containers/Index";
+import {TodoListView,person} from "../component/Index";
 
 export const routes=(
     <TodoListView person={person}></TodoListView>
