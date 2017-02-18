@@ -21,13 +21,14 @@ interface Store{
     Store:{
         count:number;
         getCount?:(count:number)=>void;
+        setVaule?:()=>void;
     }
 
 }
 export const TodoInput  = observer(class TodoInput extends React.Component<Store> {
     constructor(props){
         super(props);
-        console.log(this.props.Store.getCount)
+        this.props.Store.setVaule();
     }
 
     onChange(count){
@@ -52,9 +53,10 @@ export const TodoInput  = observer(class TodoInput extends React.Component<Store
 
     render() {
         const {count}=this.props.Store;
-
+        console.log("渲染")
         return(
             <div>
+                <h1>累加器</h1>
                 <input className="input-value" onChange={this.handleChange.bind(this)} value={count}/>
                 <input className="counter-btn" type="button" onClick={this.decrement.bind(this)} value="-"/>
                 <input className="counter-btn" type="button" onClick={this.increment.bind(this)} value="+"/>
