@@ -7,8 +7,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var entry = {
     'common/core': [
-        'webpack-dev-server/client?http://localhost:8889',
-        'webpack/hot/only-dev-server',
         'react', 'react-dom', 'react-router', 'mobx-react', 'mobx'
     ],
     'index': './src/entry/index'
@@ -17,7 +15,7 @@ module.exports = {
     entry: entry,
     resolve: {
         modulesDirectories: ['', 'src', 'node_modules', path.join(__dirname, '../node_modules')],
-        extensions: ['', '.web.js', '.js', '.json', 'ts', '.tsx']
+        extensions: ['', '.web.js', '.js', '.json']
     },
     output: {
         path: path.join(__dirname, 'app'),
@@ -57,7 +55,7 @@ module.exports = {
         ]
     },
     plugins: [
-        //new webpack.optimize.CommonsChunkPlugin('common/core', 'common/core.js'),
+        new webpack.optimize.CommonsChunkPlugin('common/core', 'common/core.js'),
         //new ExtractTextPlugin('styles.css'),
         new HtmlWebpackPlugin({
             inject: false,

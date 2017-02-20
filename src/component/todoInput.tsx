@@ -2,7 +2,7 @@
  * Created by DuanG on 2017/2/16.
  */
 import * as React from 'react';
-import {observer} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
 import './css/input.css';
 
 /*export const TodoInput = observer(React.createClass({
@@ -22,9 +22,11 @@ interface Store{
         count:number;
         getCount?:(count:number)=>void;
         setVaule?:()=>void;
+        total:number;
     }
 
 }
+@inject("store")
 export const TodoInput  = observer(class TodoInput extends React.Component<Store> {
     constructor(props){
         super(props);
@@ -50,13 +52,16 @@ export const TodoInput  = observer(class TodoInput extends React.Component<Store
     decrement(){
         this.onChange(this.props.Store.count-1);
     }
+    componentWillReact() {
+        console.log("I will re-render, since the todo has changed!");
+    }
 
     render() {
-        const {count}=this.props.Store;
+        const {count,total}=this.props.Store;
         console.log("渲染")
         return(
             <div>
-                <h1>累加器</h1>
+                <h1>test demo{total}</h1>
                 <input className="input-value" onChange={this.handleChange.bind(this)} value={count}/>
                 <input className="counter-btn" type="button" onClick={this.decrement.bind(this)} value="-"/>
                 <input className="counter-btn" type="button" onClick={this.increment.bind(this)} value="+"/>

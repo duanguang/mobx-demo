@@ -7,6 +7,8 @@ var webpack = require("webpack");
 var config = require("./webpack.config.js");
 var port = 8889;
 //config.entry['core'].unshift("webpack-dev-server/client?http://localhost:" + port, "webpack/hot/dev-server");
+/*config.plugins.push(new webpack.HotModuleReplacementPlugin());*/
+config.entry['common/core'].unshift("webpack-dev-server/client?http://localhost:" + port, "webpack/hot/dev-server");
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 var compiler = webpack(config);
 var bundleStartTime;
@@ -18,7 +20,7 @@ compiler.plugin('done', function () {
     console.info("Bundled in " + (Date.now() - bundleStartTime) + " ms. " + new Date());
 });
 var server = new WebpackDevServer(compiler, {
-    contentBase: "",
+    contentBase: "./views",
     hot: true,
     historyApiFallback: {
         rewrites: [
