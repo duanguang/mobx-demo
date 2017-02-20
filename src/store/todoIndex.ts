@@ -3,12 +3,16 @@
  */
 import {observable,computed,autorun} from 'mobx';
 class Store {
+
     constructor(){
         this.test();
         this.reset();
     }
 
     @observable count = 0;
+
+
+
     @observable title;
     @observable name;
 

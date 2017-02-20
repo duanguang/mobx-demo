@@ -18,23 +18,30 @@ import './css/input.css';
 }));*/
 
 interface Store{
-    Store:{
-        count:number;
+    store:{
+        count:number|any;
         getCount?:(count:number)=>void;
         setVaule?:()=>void;
         total:number;
     }
 
 }
+
 @inject("store")
-export const TodoInput  = observer(class TodoInput extends React.Component<Store> {
+@observer
+export  class TodoInput extends React.Component<Store,void>{
+//export const TodoInput  = observer(class TodoInput extends React.Component<Store,void> {
+
     constructor(props){
         super(props);
-        this.props.Store.setVaule();
-    }
 
+    }
+    componentWillMount(){
+        console.log(this.props.store);
+        this.props.store.setVaule();
+    }
     onChange(count){
-        this.props.Store.getCount&&this.props.Store.getCount(count);
+        this.props.store.getCount&&this.props.store.getCount(count);
     }
 
     handleChange(even){
@@ -46,18 +53,23 @@ export const TodoInput  = observer(class TodoInput extends React.Component<Store
     }
 
     increment(){
-        this.onChange(this.props.Store.count+1);
+        this.onChange(this.props.store.count+1);
     }
 
     decrement(){
-        this.onChange(this.props.Store.count-1);
+        this.onChange(this.props.store.count-1);
     }
+
     componentWillReact() {
         console.log("I will re-render, since the todo has changed!");
     }
+    componentWillReceiveProps(nextProps){
+        console.log("渲染1");
+        console.log(nextProps);
+    }
 
     render() {
-        const {count,total}=this.props.Store;
+        const {count,total}=this.props.store;
         console.log("渲染")
         return(
             <div>
@@ -68,4 +80,4 @@ export const TodoInput  = observer(class TodoInput extends React.Component<Store
             </div>
         )
     }
-})
+};

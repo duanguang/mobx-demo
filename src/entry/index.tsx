@@ -10,7 +10,7 @@ import {TodoInput} from "../component/todoInput";
 import store from "../store/todoIndex";
 /*<TodoInput Store={store} />*/
 ReactDOM.render(
-    <Provider {...store}>
+    <Provider store={store}>
         <Router history={hashHistory}>
             <Route breadcrumbName="用户管理" path="/" component={TodoInput}>
             </Route>

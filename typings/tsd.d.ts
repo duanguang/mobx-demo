@@ -5,3 +5,4 @@
 /// <reference path="react/react-dom.d.ts" />
 /// <reference path="react/react.d.ts" />
 /// <reference path="webpack/webpack.d.ts" />
+/// <reference path="mobx/mobx.d.ts" />
