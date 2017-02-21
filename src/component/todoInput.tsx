@@ -23,6 +23,11 @@ interface Store{
         getCount?:(count:number)=>void;
         setVaule?:()=>void;
         total:number;
+        query:()=>void;
+        userData:any;
+        isLoading:()=>void;
+        isLoaded:()=>void;
+        uesrs:any;
     }
 
 }
@@ -37,8 +42,16 @@ export  class TodoInput extends React.Component<Store,void>{
 
     }
     componentWillMount(){
-        console.log(this.props.store);
-        this.props.store.setVaule();
+        //console.log(this.props.store);
+        //console.log(this.props.store.isLoading)
+      //  this.props.store.setVaule();
+
+    }
+    componentDidMount(){
+        if (!this.props.store.isLoaded) {
+            this.props.store.query();
+        }
+
     }
     onChange(count){
         this.props.store.getCount&&this.props.store.getCount(count);
@@ -63,17 +76,17 @@ export  class TodoInput extends React.Component<Store,void>{
     componentWillReact() {
         console.log("I will re-render, since the todo has changed!");
     }
-    componentWillReceiveProps(nextProps){
-        console.log("渲染1");
-        console.log(nextProps);
-    }
-
+    /*componentDidUpdate(prevProps,prevState){
+        console.log('TodoItem Update....');
+    }*/
     render() {
-        const {count,total}=this.props.store;
-        console.log("渲染")
+        const {count}=this.props.store;
+        console.log('渲染render')
+        console.log(this.props.store.uesrs);
+        console.log(this.props.store.count)
         return(
             <div>
-                <h1>test demo{total}</h1>
+                <h1>test demo</h1>
                 <input className="input-value" onChange={this.handleChange.bind(this)} value={count}/>
                 <input className="counter-btn" type="button" onClick={this.decrement.bind(this)} value="-"/>
                 <input className="counter-btn" type="button" onClick={this.increment.bind(this)} value="+"/>

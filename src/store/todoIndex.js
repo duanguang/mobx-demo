@@ -9,9 +9,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
  * Created by DuanG on 2017/2/16.
  */
 var mobx_1 = require('mobx');
+var mobx_utils_1 = require('mobx-utils');
+var mobxUtils = require('mobx-utils');
+var todoService_1 = require("../api/todoService");
 var Store = (function () {
     function Store() {
-        var _this = this;
         this.count = 0;
         this.users = {};
         this.reset = function () {
@@ -22,12 +24,31 @@ var Store = (function () {
         };
         this.test = function () {
             mobx_1.autorun(function () {
-                console.log(_this.users);
+                // console.log(this.users)
             });
         };
         this.test();
         this.reset();
+        this.total;
     }
+    Object.defineProperty(Store.prototype, "isLoading", {
+        get: function () {
+            var userData = this.userData;
+            console.log('==isLoading==');
+            return !!userData && userData.state == mobxUtils.PENDING;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Store.prototype, "isLoaded", {
+        get: function () {
+            var userData = this.userData;
+            console.log('==isLoaded==');
+            return userData && userData.state == mobxUtils.FULFILLED;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Store.prototype.getCount = function (count) {
         this.count = count;
     };
@@ -42,6 +63,23 @@ var Store = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Store.prototype, "uesrs", {
+        get: function () {
+            var _a = this, isLoaded = _a.isLoaded, userData = _a.userData;
+            console.log(userData);
+            if (isLoaded) {
+                return userData.value;
+            }
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Store.prototype.query = function () {
+        if (this.isLoading)
+            return;
+        this.userData = mobx_utils_1.fromPromise(todoService_1.getCustomerInfo());
+    };
     __decorate([
         mobx_1.observable
     ], Store.prototype, "count", void 0);
@@ -55,8 +93,23 @@ var Store = (function () {
         mobx_1.observable
     ], Store.prototype, "users", void 0);
     __decorate([
+        mobx_1.observable
+    ], Store.prototype, "userData", void 0);
+    __decorate([
+        mobx_1.computed
+    ], Store.prototype, "isLoading", null);
+    __decorate([
+        mobx_1.computed
+    ], Store.prototype, "isLoaded", null);
+    __decorate([
         mobx_1.computed
     ], Store.prototype, "total", null);
+    __decorate([
+        mobx_1.computed
+    ], Store.prototype, "uesrs", null);
+    __decorate([
+        mobx_1.action
+    ], Store.prototype, "query", null);
     return Store;
 }());
 Object.defineProperty(exports, "__esModule", { value: true });

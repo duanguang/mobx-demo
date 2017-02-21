@@ -8,7 +8,11 @@ import {Provider} from 'mobx-react';
 import {TodoView, person} from "../component/Index";
 import {TodoInput} from "../component/todoInput";
 import store from "../store/todoIndex";
+import {autorun} from "mobx";
 /*<TodoInput Store={store} />*/
+autorun(()=> {
+    //console.log(store.isLoading);
+});
 ReactDOM.render(
     <Provider store={store}>
         <Router history={hashHistory}>

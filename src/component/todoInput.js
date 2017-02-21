@@ -23,8 +23,14 @@ var TodoInput = (function (_super) {
         _super.call(this, props);
     }
     TodoInput.prototype.componentWillMount = function () {
-        console.log(this.props.store);
-        this.props.store.setVaule();
+        //console.log(this.props.store);
+        //console.log(this.props.store.isLoading)
+        //  this.props.store.setVaule();
+    };
+    TodoInput.prototype.componentDidMount = function () {
+        if (!this.props.store.isLoaded) {
+            this.props.store.query();
+        }
     };
     TodoInput.prototype.onChange = function (count) {
         this.props.store.getCount && this.props.store.getCount(count);
@@ -45,20 +51,15 @@ var TodoInput = (function (_super) {
     TodoInput.prototype.componentWillReact = function () {
         console.log("I will re-render, since the todo has changed!");
     };
-    TodoInput.prototype.componentWillReceiveProps = function (nextProps) {
-        console.log("渲染1");
-        console.log(nextProps);
-    };
+    /*componentDidUpdate(prevProps,prevState){
+        console.log('TodoItem Update....');
+    }*/
     TodoInput.prototype.render = function () {
-        var _a = this.props.store, count = _a.count, total = _a.total;
-        console.log("渲染");
-        return (React.createElement("div", null, 
-            React.createElement("h1", null, 
-                "test demo", 
-                total), 
-            React.createElement("input", {className: "input-value", onChange: this.handleChange.bind(this), value: count}), 
-            React.createElement("input", {className: "counter-btn", type: "button", onClick: this.decrement.bind(this), value: "-"}), 
-            React.createElement("input", {className: "counter-btn", type: "button", onClick: this.increment.bind(this), value: "+"})));
+        var count = this.props.store.count;
+        console.log('渲染render');
+        console.log(this.props.store.uesrs);
+        console.log(this.props.store.count);
+        return (React.createElement("div", null, React.createElement("h1", null, "test demo"), React.createElement("input", {className: "input-value", onChange: this.handleChange.bind(this), value: count}), React.createElement("input", {className: "counter-btn", type: "button", onClick: this.decrement.bind(this), value: "-"}), React.createElement("input", {className: "counter-btn", type: "button", onClick: this.increment.bind(this), value: "+"})));
     };
     TodoInput = __decorate([
         mobx_react_1.inject("store"),

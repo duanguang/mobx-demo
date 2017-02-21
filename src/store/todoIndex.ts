@@ -1,23 +1,35 @@
 /**
  * Created by DuanG on 2017/2/16.
  */
-import {observable,computed,autorun} from 'mobx';
+import {observable,computed,autorun,action} from 'mobx';
+import {fromPromise} from 'mobx-utils';
+var mobxUtils=require('mobx-utils');
+import {getCustomerInfo} from "../api/todoService";
+
 class Store {
 
     constructor(){
         this.test();
         this.reset();
+        this.total;
     }
 
     @observable count = 0;
-
-
-
     @observable title;
     @observable name;
-
     @observable users = {}
+    @observable userData;
 
+    @computed get isLoading(){
+        const userData=this.userData;
+        console.log('==isLoading==')
+        return !!userData&&userData.state==mobxUtils.PENDING;
+    }
+    @computed get isLoaded(){
+        const userData=this.userData;
+        console.log('==isLoaded==')
+        return userData&&userData.state==mobxUtils.FULFILLED;
+    }
     reset = ()=> {
         //this.users = Object.assign( { 'ASDFPOIU98': { id: 'ASDFPOIU98', name: '张小龙' } }, this.users);autorun触发二次
         //this.users['ASDFPOIU98'] = { id: 'ASDFPOIU98', name: '张小龙' }//autorun触发一次
@@ -35,12 +47,23 @@ class Store {
     @computed get total() {
         return this.count;
     }
+    @computed get uesrs(){
+        const {isLoaded, userData}= this;
+        console.log(userData)
+        if (isLoaded) {
+            return userData.value;
+        }
+        return {};
+    }
     test = ()=> {
         autorun(()=> {
-            console.log(this.users)
+           // console.log(this.users)
         })
     }
-
+    @action query(){
+        if(this.isLoading) return;
+        this.userData=fromPromise(getCustomerInfo());
+    }
 }
 
 
