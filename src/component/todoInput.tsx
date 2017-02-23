@@ -28,6 +28,8 @@ interface Store{
         isLoading:()=>void;
         isLoaded:()=>void;
         uesrs:any;
+        asyncQuery:()=>void;
+        boundQuery:()=>void;
     }
 
 }
@@ -44,12 +46,12 @@ export  class TodoInput extends React.Component<Store,void>{
     componentWillMount(){
         //console.log(this.props.store);
         //console.log(this.props.store.isLoading)
-      //  this.props.store.setVaule();
+        this.props.store.setVaule();
 
     }
     componentDidMount(){
         if (!this.props.store.isLoaded) {
-            this.props.store.query();
+            this.props.store.boundQuery();
         }
 
     }
@@ -83,7 +85,6 @@ export  class TodoInput extends React.Component<Store,void>{
         const {count}=this.props.store;
         console.log('渲染render')
         console.log(this.props.store.uesrs);
-        console.log(this.props.store.count)
         return(
             <div>
                 <h1>test demo</h1>

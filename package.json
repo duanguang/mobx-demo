@@ -8,26 +8,27 @@
     "deploy": "SET NODE_ENV=production&&webpack --config webpack.prod.config.js"
   },
   "dependencies": {
+    "isomorphic-fetch": "2.2.1",
+    "kad-nrm": "^1.0.2",
     "mobx": "^3.1.0",
     "mobx-react": "^4.1.0",
     "mobx-utils": "^2.0.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-router": "2.6.0",
-    "superagent": "2.0.0",
-    "isomorphic-fetch": "2.2.1"
+    "superagent": "2.0.0"
   },
   "devDependencies": {
     "babel-preset-react": "6.3.13",
     "babelify": "^7.2.0",
     "css-loader": "^0.23.1",
     "file-loader": "0.8.5",
+    "html-webpack-plugin": "^2.22.0",
+    "html-webpack-template": "^5.1.1",
     "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
-    "html-webpack-plugin": "^2.22.0",
-    "html-webpack-template": "^5.1.1",
     "open-browser-webpack-plugin": "0.0.2",
     "postcss-loader": "^0.13.0",
     "postcss-plugin-px2rem": "^0.6.0",
