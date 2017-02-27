@@ -9,11 +9,13 @@ import {TodoView, person} from "../component/Index";
 import {TodoInput} from "../component/todoInput";
 import store from "../store/todoIndex";
 import {autorun} from "mobx";
+import DevTools from 'mobx-react-devtools';
 /*<TodoInput Store={store} />*/
 autorun(()=> {
     //console.log(store.isLoading);
 });
 ReactDOM.render(
+    <div>
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route breadcrumbName="用户管理" path="/" component={TodoInput}>
@@ -21,6 +23,7 @@ ReactDOM.render(
             <Route path="*" component={TodoInput}/>
         </Router>
     </Provider>
-    ,
+        <DevTools/>
+    </div>,
     document.getElementById('app')
 );
